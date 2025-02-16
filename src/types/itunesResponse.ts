@@ -71,7 +71,7 @@ export interface Entry {
     };
 };
 
-export interface iTunesResponse {
+export interface ITunesResponse {
     feed: {
         author: {
             name: {
