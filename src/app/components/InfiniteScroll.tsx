@@ -14,15 +14,13 @@ interface Props<T> {
     itemsPerPage: number;
 }
 
-export function InfiniteScroll<T>({ items, renderItem, itemsPerPage = 10 }: Props<T>) {
+export function InfiniteScroll<T>({ items, renderItem, itemsPerPage = 10 }: Props<T>): React.JSX.Element {
     const [visibleItems, setVisibleItems] = React.useState(itemsPerPage);
 
     React.useEffect(() => {
         const handleScroll = () => {
-            console.log("HandleScroll")
             const scrolledToBottom =
                 window.innerHeight + window.scrollY >= document.body.offsetHeight;
-            console.log({ scrolledToBottom })
 
             if (scrolledToBottom) {
                 setVisibleItems((prevVisibleItems) =>
@@ -40,7 +38,7 @@ export function InfiniteScroll<T>({ items, renderItem, itemsPerPage = 10 }: Prop
     return (
         <>
             {items.slice(0, visibleItems).map((item) => (
-                <React.Fragment key={(item as any).id ?? item}>
+                <React.Fragment key={item.id}>
                     {renderItem(item)}
                 </React.Fragment>
             ))}

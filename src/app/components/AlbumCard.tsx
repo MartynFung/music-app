@@ -2,39 +2,40 @@ import { Entry } from "@/types/itunesResponse"
 import Image from "next/image";
 
 interface Props {
-    album: Entry
+    album: Entry;
+    rank: number;
 }
 
-export function AlbumCard({ album }: Props) {
+export function AlbumCard({ album, rank }: Props): React.JSX.Element {
     const albumTitle = album["im:name"].label
     const artistName = album["im:artist"].label
     const artistLink = album["im:artist"]?.attributes?.href // TODO: Handle missing artist link
     const albumLink = album.link.attributes.href
     const images = album["im:image"]
-    console.log({ images })
     const imageHeight = images.at(-1)?.attributes.height // TODO: Handle missing image link
     const imageLink = images.at(-1)?.label // TODO: Handle missing image link
-    console.log({ imageHeight })
 
     return (
-        <div className="flex flex-col items-center p-2 rounded-lg shadow-sm border border-gray-200 bg-white hover:shadow-md transition-shadow m-2">
-            <div className="w-50 h-50 flex-shrink-0">
+        <div className="flex w-[200px] flex-col items-center rounded-lg w-full">
+            <div className="w-[200px] h-[200px] flex-shrink-0">
                 <a href={albumLink} target="_blank" rel="noopener noreferrer">
-                    {imageLink && <Image src={imageLink} alt="Album Art" width={170} height={170} className="rounded-md" />}
+                    {imageLink && <Image src={imageLink} alt={`Album Art: ${albumTitle}`} width={200} height={200} className="rounded-lg transition duration-300 ease-in-out hover:brightness-75 shadow-lg hover:shadow-xl " />}
                 </a>
             </div>
-            <div className="flex flex-col flex-1">
-                <div className="flex-1 px-4 text-sm font-medium text-gray-900 truncate hover:underline">
-                    <a href={albumLink} target="_blank" rel="noopener noreferrer">
+            <div className="flex flex-col flex-1 w-full min-w-0 py-2">
+                <label className="text-sm font-medium font-bold">{rank}</label>
+                <a href={albumLink} target="_blank" rel="noopener noreferrer">
+                    <label className="block cursor-pointer text-sm font-medium text-gray-900 truncate hover:underline w-full overflow-hidden">
                         {albumTitle}
-                    </a>
-                </div>
-                <div className="px-4 text-sm text-gray-600 truncate hover:underline">
-                    <a href={artistLink} target="_blank" rel="noopener noreferrer" className="">
+                    </label>
+                </a>
+                <a href={artistLink} target="_blank" rel="noopener noreferrer" className="">
+                    <label className="inline-block cursor-pointer text-sm text-gray-600 truncate hover:underline w-full overflow-hidden">
                         {artistName}
-                    </a>
-                </div>
+                    </label>
+                </a>
             </div>
         </div>
+
     )
 }
