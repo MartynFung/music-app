@@ -1,5 +1,6 @@
 import { Album } from "@/types/album";
 import React, { useEffect, useRef } from "react";
+import Image from "next/image";
 
 const DateFormatOptions: Intl.DateTimeFormatOptions = {
     year: 'numeric',
@@ -15,6 +16,7 @@ interface Props {
 
 export function AlbumModal({ album, isOpen, onClose }: Props) {
     const modalRef = useRef<HTMLDivElement | null>(null);
+    const { imageLink, albumLink, albumTitle, artistLink, artistName, category, releaseDate } = album
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -34,7 +36,7 @@ export function AlbumModal({ album, isOpen, onClose }: Props) {
         };
     }, [isOpen, onClose]);
 
-    const dateString = album.releaseDate.toLocaleDateString('en-US', DateFormatOptions);
+    const dateString = releaseDate.toLocaleDateString('en-US', DateFormatOptions);
 
     return (
         <div
@@ -47,32 +49,33 @@ export function AlbumModal({ album, isOpen, onClose }: Props) {
                     className="bg-white rounded-xl shadow-xl w-96 p-6"
                 >
                     <div className="flex justify-between items-center">
-                        <h2 className="text-xl font-bold">{album.albumTitle}</h2>
+                        <h2 className="text-xl font-bold">{albumTitle}</h2>
                     </div>
                     <div className="flex flex-col items-center mt-4">
-                        <a href={album.albumLink} target="_blank" rel="noopener noreferrer">
-                            <img
-                                src={album.imageLink}
-                                alt={album.albumTitle}
-                                className="rounded-lg w-full h-48 object-cover cursor-pointer"
-                            />
+                        <a href={albumLink} target="_blank" rel="noopener noreferrer">
+                            <Image
+                                src={imageLink || ""}
+                                alt={`Album Art: ${albumTitle}`}
+                                width={200}
+                                height={200}
+                                className="rounded-lg transition duration-300 ease-in-out hover:brightness-75 shadow-lg hover:shadow-xl cursor-pointer" />
                         </a>
                         <div className="flex flex-col mt-4 text-left">
                             <p className="text-sm text-gray-600">
-                                Release Date: {dateString}
-                            </p>
-                            <p className="text-sm text-gray-600">
                                 Artist:{" "}
                                 <a
-                                    href={album.artistLink}
+                                    href={artistLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="hover:underline"
                                 >
-                                    {album.artistName}
+                                    {artistName}
                                 </a>
                             </p>
-                            <p className="text-sm text-gray-600">Genre: {album.category}</p>
+                            <p className="text-sm text-gray-600">Genre: {category}</p>
+                            <p className="text-sm text-gray-600">
+                                Release Date: {dateString}
+                            </p>
                         </div>
                     </div>
                 </div>
