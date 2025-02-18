@@ -25,15 +25,18 @@ export function SearchInput({
     return () => clearTimeout(timer);
   }, [inputValue, setSearchValue, debounceTimeMs]);
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      inputRef.current &&
-      !inputRef.current.contains(event.target as Node) &&
-      inputValue === ""
-    ) {
-      setIsOpen(false);
-    }
-  };
+  const handleClickOutside = React.useCallback(
+    (event: MouseEvent) => {
+      if (
+        inputRef.current &&
+        !inputRef.current.contains(event.target as Node) &&
+        inputValue === ""
+      ) {
+        setIsOpen(false);
+      }
+    },
+    [inputValue]
+  );
 
   const handleButtonClick = () => {
     setIsOpen(true);

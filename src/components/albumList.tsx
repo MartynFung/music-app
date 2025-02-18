@@ -21,47 +21,49 @@ export function AlbumList({ albums }: Props): React.JSX.Element {
   const [searchValue, setSearchValue] = React.useState<string>("");
   const [genre, setSelectedGenre] = React.useState<string | null>(null);
 
-  const sortItems = (
-    items: ScrollItem<Album>[],
-    key: string | null,
-    searchVal: string | null
-  ) => {
-    if (key === SortKey.top && !searchVal) {
-      return items;
-    }
+  const sortItems = React.useCallback(
+    (
+      items: ScrollItem<Album>[],
+      key: string | null,
+      searchVal: string | null
+    ) => {
+      if (key === SortKey.top && !searchVal) {
+        return items;
+      }
 
-    const lowercasedSearchText = searchValue.toLowerCase();
-    const lowercasedGenre = genre?.toLocaleLowerCase() || "";
-    const filteredItems = items.filter((item) => {
-      const matchingAlbumTitle = item.data.albumTitle
-        .toLowerCase()
-        .includes(lowercasedSearchText);
-      const matchingArtistName = item.data.artistName
-        .toLowerCase()
-        .includes(lowercasedSearchText);
-      if (lowercasedGenre && lowercasedGenre !== "all") {
-        return (
-          item.data.category.toLowerCase().includes(lowercasedGenre) &&
-          (matchingAlbumTitle || matchingArtistName)
-        );
-      }
-      return matchingAlbumTitle || matchingArtistName;
-    });
-    console.log({ lowercasedGenre });
-    return filteredItems.sort((a, b) => {
-      switch (key) {
-        case SortKey.albumTitle:
-          return a.data.albumTitle.localeCompare(b.data.albumTitle);
-        case SortKey.artistName:
-          return a.data.artistName.localeCompare(b.data.artistName);
-        case SortKey.releaseDate:
-          // Sort newest to oldest
-          return b.data.releaseDate.getTime() - a.data.releaseDate.getTime();
-        default:
-          return 0; // Default case if no valid sortKey is provided
-      }
-    });
-  };
+      const lowercasedSearchText = searchValue.toLowerCase();
+      const lowercasedGenre = genre?.toLocaleLowerCase() || "";
+      const filteredItems = items.filter((item) => {
+        const matchingAlbumTitle = item.data.albumTitle
+          .toLowerCase()
+          .includes(lowercasedSearchText);
+        const matchingArtistName = item.data.artistName
+          .toLowerCase()
+          .includes(lowercasedSearchText);
+        if (lowercasedGenre && lowercasedGenre !== "all") {
+          return (
+            item.data.category.toLowerCase().includes(lowercasedGenre) &&
+            (matchingAlbumTitle || matchingArtistName)
+          );
+        }
+        return matchingAlbumTitle || matchingArtistName;
+      });
+      console.log({ lowercasedGenre });
+      return filteredItems.sort((a, b) => {
+        switch (key) {
+          case SortKey.albumTitle:
+            return a.data.albumTitle.localeCompare(b.data.albumTitle);
+          case SortKey.artistName:
+            return a.data.artistName.localeCompare(b.data.artistName);
+          case SortKey.releaseDate:
+            return b.data.releaseDate.getTime() - a.data.releaseDate.getTime();
+          default:
+            return 0;
+        }
+      });
+    },
+    [searchValue, genre]
+  );
 
   React.useEffect(() => {
     const sortedItems = sortItems([...albums], sortKey, searchValue);
@@ -86,7 +88,7 @@ export function AlbumList({ albums }: Props): React.JSX.Element {
         <SearchInput
           searchValue={searchValue}
           setSearchValue={handleSearchValueChange}
-          debounceTimeMs={0}
+          debounceTimeMs={200}
         />
         <Dropdown
           options={albumSortOptions}

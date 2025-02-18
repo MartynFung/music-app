@@ -30,7 +30,7 @@ export default async function Home(): Promise<React.JSX.Element> {
       };
 
       return scrollItemAlbum;
-    },
+    }
   );
 
   const firstEntry = data.feed.entry[0];
