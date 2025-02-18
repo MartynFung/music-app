@@ -1,6 +1,8 @@
 import { Album } from "@/types/album";
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const DateFormatOptions: Intl.DateTimeFormatOptions = {
   year: "numeric",
@@ -57,8 +59,14 @@ export function AlbumModal({ album, isOpen, onClose }: Props) {
     >
       <div className="flex justify-center items-center min-h-screen">
         <div ref={modalRef} className="bg-white rounded-xl shadow-xl w-96 p-6">
-          <div className="flex justify-center items-center">
-            <h2 className="text-xl font-bold">{albumTitle}</h2>
+          <div className="flex justify-center items-center relative">
+            <h2 className="text-xl font-bold mx-6">{albumTitle}</h2>
+            <button
+              className="absolute top-1 right-1 text-gray-600 hover:text-black"
+              onClick={onClose}
+            >
+              <FontAwesomeIcon icon={faXmark} size="lg" className="flex" />
+            </button>
           </div>
           <div className="flex flex-col items-center mt-4">
             <a href={albumLink} target="_blank" rel="noopener noreferrer">
