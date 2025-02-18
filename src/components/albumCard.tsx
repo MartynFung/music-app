@@ -10,7 +10,7 @@ export function AlbumCard({ album, rank }: Props): React.JSX.Element {
     const { albumTitle, albumLink, artistName, imageLink, artistLink, releaseDate } = album
 
     return (
-        <div className="flex w-[200px] flex-col items-center rounded-lg w-full">
+        <div className="flex w-[200px] flex-col items-center rounded-lg">
             <div className="w-[200px] h-[200px] flex-shrink-0">
                 <a href={albumLink} target="_blank" rel="noopener noreferrer">
                     {imageLink && <Image
@@ -18,8 +18,7 @@ export function AlbumCard({ album, rank }: Props): React.JSX.Element {
                         alt={`Album Art: ${albumTitle}`}
                         width={200}
                         height={200}
-                        priority={true}
-                        className="rounded-lg transition duration-300 ease-in-out hover:brightness-75 shadow-lg hover:shadow-xl object-cover" />}
+                        className="rounded-lg transition duration-300 ease-in-out hover:brightness-75 shadow-lg hover:shadow-xl" />}
                 </a>
             </div>
             <div className="flex flex-col flex-1 w-full min-w-0 py-2">
