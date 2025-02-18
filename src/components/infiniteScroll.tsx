@@ -16,7 +16,6 @@ interface Props<T> {
 
 export function InfiniteScroll<T>({ items, renderItem, itemsPerPage = 10 }: Props<T>): React.JSX.Element {
     const [visibleItems, setVisibleItems] = React.useState<number>(itemsPerPage);
-    console.log({ items })
 
     React.useEffect(() => {
         const handleScroll = () => {

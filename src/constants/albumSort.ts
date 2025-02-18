@@ -1,20 +1,16 @@
 import { DropdownOption } from "@/components/dropdown";
 
 export enum SortKey {
-    default = "default",
-    albumTitle = "albumTitle",
-    artistName = "artistName",
-    releaseDate = "releaseDate"
+    top = "Top",
+    albumTitle = "Album Title",
+    artistName = "Artist Name",
+    releaseDate = "Release Date"
 }
 
 export const albumSortOptions: DropdownOption[] = [
     {
-        id: SortKey.default,
-        value: SortKey.default
-    },
-    {
-        id: SortKey.default,
-        value: SortKey.default
+        id: SortKey.top,
+        value: SortKey.top
     },
     {
         id: SortKey.albumTitle,
