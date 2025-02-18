@@ -5,15 +5,15 @@ import { Dropdown, DropdownOption } from "@/components/dropdown";
 import { InfiniteScroll, ScrollItem } from "@/components/infiniteScroll";
 import { SearchInput } from "@/components/searchInput";
 import { albumSortOptions, SortKey } from "@/constants/albumSort";
+import { genreOptions } from "@/constants/genres";
 import { Album } from "@/types/album";
 import * as React from "react";
 
 interface Props {
     albums: ScrollItem<Album>[];
-    genreOptions: DropdownOption[];
 }
 
-export function AlbumList({ albums, genreOptions }: Props): React.JSX.Element {
+export function AlbumList({ albums }: Props): React.JSX.Element {
     const [sortedAlbums, setSortedAlbums] = React.useState<ScrollItem<Album>[]>([])
     const [sortKey, setSortKey] = React.useState<string | null>(null);
     const [searchValue, setSearchValue] = React.useState<string>("");
@@ -66,15 +66,21 @@ export function AlbumList({ albums, genreOptions }: Props): React.JSX.Element {
 
     const renderItem = (album: ScrollItem<Album>) => <AlbumCard key={album.id} album={album.data} rank={album.index} />;
 
+    function renderListControls(): React.JSX.Element {
+        return (
+            <div className="flex flex-col items-center justify-between gap-2 sm:flex-row">
+                <SearchInput searchValue={searchValue} setSearchValue={handleSearchValueChange} debounceTimeMs={0} />
+                <Dropdown options={albumSortOptions} selectedOptionId={sortKey} handleSelectedOption={handleSelectSortOption} placeholderText="Sort by" />
+                <Dropdown options={genreOptions} selectedOptionId={genre} handleSelectedOption={setSelectedGenre} placeholderText="Filter" firstItemText="Filter by:" />
+            </div>
+        )
+    }
+
     return (
         <div>
             <div className="flex flex-col items-center justify-between pb-6 gap-2 sm:flex-row">
                 <h1 className="text-xl font-bold">Top Albums</h1>
-                <div className="flex flex-col items-center justify-between gap-2 sm:flex-row">
-                    <SearchInput searchValue={searchValue} setSearchValue={handleSearchValueChange} debounceTimeMs={0} />
-                    <Dropdown options={albumSortOptions} selectedOptionId={sortKey} handleSelectedOption={handleSelectSortOption} placeholderText="Sort by" />
-                    <Dropdown options={genreOptions} selectedOptionId={genre} handleSelectedOption={setSelectedGenre} placeholderText="Filter" firstItemText="Filter by:" />
-                </div>
+                {renderListControls()}
             </div>
             <div id="infinite-scroll-container" className="min-h-screen max-w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 <InfiniteScroll items={sortedAlbums} renderItem={renderItem} itemsPerPage={10} />

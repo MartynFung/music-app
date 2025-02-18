@@ -11,17 +11,8 @@ const iTunesTopAlbumsUrl = "https://itunes.apple.com/us/rss/topalbums/limit=100/
 export default async function Home(): Promise<React.JSX.Element> {
   const response = await fetch(iTunesTopAlbumsUrl)
   const data: ITunesResponse = await response.json()
-  const uniqueCategories = new Set<string>()
-  const genreOptions = [
-    {
-      id: "All",
-      value: "All"
-    }
-  ]
 
   const albums: ScrollItem<Album>[] = data.feed.entry.map((entry: Entry, index) => {
-    uniqueCategories.add(entry.category.attributes.label)
-
     const album: Album = {
       albumTitle: entry["im:name"].label || "",
       artistName: entry["im:artist"].label || "",
@@ -42,21 +33,12 @@ export default async function Home(): Promise<React.JSX.Element> {
     return scrollItemAlbum
   })
 
-  const categories = Array.from(uniqueCategories)
-  categories.forEach((genre: string) => {
-    genreOptions.push({
-      id: genre,
-      value: genre
-    })
-  });
-
   const firstEntry = data.feed.entry[0]
   console.log(firstEntry)
-  console.log({ genreOptions })
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <AlbumList albums={albums} genreOptions={genreOptions} />
+        <AlbumList albums={albums} />
       </main>
     </div>
   );
