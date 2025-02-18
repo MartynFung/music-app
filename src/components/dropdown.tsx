@@ -72,7 +72,7 @@ export function Dropdown({ options, selectedOptionId, handleSelectedOption: setS
                                 <li key={option.id}>
                                     <button
                                         onClick={() => handleOptionClick(option)}
-                                        className={`w-full text-left px-4 py-2 hover:bg-gray-100 transition ${isSelected && "text-gray-400"}`}
+                                        className={`w-full text-left px-4 py-2 hover:bg-gray-100 transition ${isSelected && "font-bold"}`}
                                         disabled={isSelected}
                                     >
                                         {option.value}

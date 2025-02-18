@@ -56,7 +56,6 @@ export function AlbumList({ albums }: Props): React.JSX.Element {
     }
 
     const renderItem = (album: ScrollItem<Album>) => <AlbumCard key={album.id} album={album.data} rank={album.index} />;
-    console.log({ searchValue })
 
     return (
         <div>

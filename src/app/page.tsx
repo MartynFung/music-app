@@ -20,6 +20,7 @@ export default async function Home(): Promise<React.JSX.Element> {
       images: entry["im:image"] || "",
       imageLink: entry["im:image"].at(-1)?.label || "", // TODO: Handle missing link
       releaseDate: new Date(entry["im:releaseDate"].attributes.label),
+      category: entry.category.attributes.label,
     }
 
     const scrollItemAlbum: ScrollItem<Album> = {
@@ -30,6 +31,9 @@ export default async function Home(): Promise<React.JSX.Element> {
 
     return scrollItemAlbum
   })
+
+  const firstEntry = data.feed.entry[0]
+  console.log(firstEntry)
 
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
