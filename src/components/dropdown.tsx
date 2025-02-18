@@ -41,19 +41,22 @@ export function Dropdown({ options, selectedOptionId, handleSelectedOption: setS
         };
     }, [isOpen]);
 
-    return (
-        <div className="relative inline-block" ref={dropdownRef}>
-            {/* Dropdown Button */}
+    function renderButton() {
+        return (
             <button
                 onClick={toggleDropdown}
-                className="px-4 py-2 font-medium rounded-lg shadow-md hover:bg-gray-100 transition"
+                className={`px-4 py-2 font-medium rounded-lg hover:bg-gray-100 hover:shadow-md ${isOpen && "shadow-md bg-gray-100"} transition`}
             >
                 {selectedOptionId ? selectedOptionId : placeholderText}
             </button>
+        )
+    }
 
-            {/* Dropdown Menu */}
+    return (
+        <div className="relative inline-block" ref={dropdownRef}>
+            {renderButton()}
             {isOpen && (
-                <div className="absolute mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg right-0">
+                <div className="absolute mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg right-0 z-10">
                     <ul className="py-2 text-gray-700">
                         <li key={"placeholder"}>
                             <button
@@ -63,17 +66,21 @@ export function Dropdown({ options, selectedOptionId, handleSelectedOption: setS
                                 Sort By:
                             </button>
                         </li>
-                        {options.map((option: DropdownOption) => (
-                            <li key={option.id}>
-                                <button
-                                    onClick={() => handleOptionClick(option)}
-                                    className="w-full text-left px-4 py-2 hover:bg-gray-100 transition"
-                                    disabled={selectedOptionId === option.id}
-                                >
-                                    {option.value}
-                                </button>
-                            </li>
-                        ))}
+                        {options.map((option: DropdownOption) => {
+                            const isSelected = selectedOptionId === option.id
+                            return (
+                                <li key={option.id}>
+                                    <button
+                                        onClick={() => handleOptionClick(option)}
+                                        className={`w-full text-left px-4 py-2 hover:bg-gray-100 transition ${isSelected && "text-gray-400"}`}
+                                        disabled={isSelected}
+                                    >
+                                        {option.value}
+                                    </button>
+                                </li>
+                            )
+                        }
+                        )}
                     </ul>
                 </div>
             )}

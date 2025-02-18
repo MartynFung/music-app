@@ -49,8 +49,8 @@ export function AlbumList({ albums }: Props): React.JSX.Element {
 
     return (
         <div>
-            <div className="flex items-center justify-between pb-6">
-                <h1 className="text-xl font-bold">Top Albums</h1>
+            <div className="flex flex-col items-center justify-between pb-6 sm:flex-row">
+                <h1 className="text-xl font-bold pb-4 sm:pb-0">Top Albums</h1>
                 <Dropdown options={albumSortOptions} selectedOptionId={sortKey} handleSelectedOption={handleSelectSortOption} placeholderText="Sort by" />
             </div>
             <div id="infinite-scroll-container" className="min-h-screen max-w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
