@@ -45,7 +45,7 @@ export function SearchInput({ searchValue, setSearchValue, debounceTimeMs, place
         <div className="relative">
             {!isOpen && (
                 <button
-                    className="font-medium px-4 py-2 h-10 rounded-lg hover:bg-gray-100 hover:shadow-md"
+                    className="font-medium px-4 py-2 h-10 rounded-lg hover:bg-gray-100 hover:shadow-md text-rose-500"
                     onClick={handleButtonClick}
                 >
                     Search

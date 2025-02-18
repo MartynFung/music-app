@@ -10,9 +10,10 @@ interface Props {
     selectedOptionId: string | null;
     handleSelectedOption: (value: string) => void;
     placeholderText?: string;
+    firstItemText?: string;
 }
 
-export function Dropdown({ options, selectedOptionId, handleSelectedOption: setSelectedOption, placeholderText = "Select an option" }: Props) {
+export function Dropdown({ options, selectedOptionId, handleSelectedOption: setSelectedOption, placeholderText = "Select an option", firstItemText = "Sort By:" }: Props) {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement | null>(null);
 
@@ -41,11 +42,11 @@ export function Dropdown({ options, selectedOptionId, handleSelectedOption: setS
         };
     }, [isOpen]);
 
-    function renderButton() {
+    function renderShowDropdownButton() {
         return (
             <button
                 onClick={toggleDropdown}
-                className={`px-4 py-2 font-medium rounded-lg hover:bg-gray-100 hover:shadow-md ${isOpen && "shadow-md bg-gray-100"} transition`}
+                className={`px-4 py-2 font-medium text-rose-500 rounded-lg hover:bg-gray-100 hover:shadow-md ${isOpen && "shadow-md bg-gray-100"} transition`}
             >
                 {selectedOptionId ? selectedOptionId : placeholderText}
             </button>
@@ -54,7 +55,7 @@ export function Dropdown({ options, selectedOptionId, handleSelectedOption: setS
 
     return (
         <div className="relative inline-block" ref={dropdownRef}>
-            {renderButton()}
+            {renderShowDropdownButton()}
             {isOpen && (
                 <div className="absolute mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg right-0 z-10">
                     <ul className="py-2 text-gray-700">
@@ -63,7 +64,7 @@ export function Dropdown({ options, selectedOptionId, handleSelectedOption: setS
                                 className="w-full text-left px-4 py-2 text-gray-400"
                                 disabled
                             >
-                                Sort By:
+                                {firstItemText}
                             </button>
                         </li>
                         {options.map((option: DropdownOption) => {

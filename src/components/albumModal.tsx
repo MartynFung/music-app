@@ -48,7 +48,7 @@ export function AlbumModal({ album, isOpen, onClose }: Props) {
                     ref={modalRef}
                     className="bg-white rounded-xl shadow-xl w-96 p-6"
                 >
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-center items-center">
                         <h2 className="text-xl font-bold">{albumTitle}</h2>
                     </div>
                     <div className="flex flex-col items-center mt-4">
@@ -60,9 +60,8 @@ export function AlbumModal({ album, isOpen, onClose }: Props) {
                                 height={200}
                                 className="rounded-lg transition duration-300 ease-in-out hover:brightness-75 shadow-lg hover:shadow-xl cursor-pointer" />
                         </a>
-                        <div className="flex flex-col mt-4 text-left">
-                            <p className="text-sm text-gray-600">
-                                Artist:{" "}
+                        <div className="flex flex-col mt-4 text-center gap-1">
+                            <p className="text-md text-rose-500">
                                 <a
                                     href={artistLink}
                                     target="_blank"
@@ -72,9 +71,9 @@ export function AlbumModal({ album, isOpen, onClose }: Props) {
                                     {artistName}
                                 </a>
                             </p>
-                            <p className="text-sm text-gray-600">Genre: {category}</p>
+                            <p className="text-sm text-gray-600">{category}</p>
                             <p className="text-sm text-gray-600">
-                                Release Date: {dateString}
+                                {dateString}
                             </p>
                         </div>
                     </div>

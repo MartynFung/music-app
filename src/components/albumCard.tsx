@@ -34,7 +34,7 @@ export function AlbumCard({ album, rank }: Props): React.JSX.Element {
                     className="rounded-lg transition duration-300 ease-in-out hover:brightness-75 shadow-lg hover:shadow-xl cursor-pointer" />
             </div>
             <div className="flex flex-col flex-1 w-full min-w-0 py-2">
-                <label className="text-sm font-medium font-bold">{rank}</label>
+                <label className="text-sm font-bold">{rank}</label>
                 {/* <label className="text-sm font-medium font-bold">{releaseDate.toDateString()}</label> */}
                 <a href={albumLink} target="_blank" rel="noopener noreferrer">
                     <label className="block cursor-pointer text-sm font-medium text-gray-900 truncate hover:underline w-full overflow-hidden">
