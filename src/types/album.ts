@@ -11,5 +11,5 @@ export interface Album {
   }>;
   imageLink: string;
   releaseDate: Date;
-  category: string;
+  genre: string;
 }

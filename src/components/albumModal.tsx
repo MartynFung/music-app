@@ -22,7 +22,7 @@ export function AlbumModal({ album, isOpen, onClose }: Props) {
     albumTitle,
     artistLink,
     artistName,
-    category,
+    genre,
     releaseDate,
   } = album;
 
@@ -70,7 +70,7 @@ export function AlbumModal({ album, isOpen, onClose }: Props) {
                 className="rounded-lg transition duration-300 ease-in-out hover:brightness-75 shadow-lg hover:shadow-xl cursor-pointer"
               />
             </a>
-            <div className="flex flex-col mt-4 text-center gap-1">
+            <div className="flex flex-col mt-4 text-center">
               <p className="text-md text-rose-500">
                 <a
                   href={artistLink}
@@ -81,7 +81,7 @@ export function AlbumModal({ album, isOpen, onClose }: Props) {
                   {artistName}
                 </a>
               </p>
-              <p className="text-sm text-gray-600">{category}</p>
+              <p className="text-sm">{genre}</p>
               <p className="text-sm text-gray-600">{dateString}</p>
             </div>
           </div>

@@ -42,7 +42,7 @@ export function AlbumList({ albums }: Props): React.JSX.Element {
           .includes(lowercasedSearchText);
         if (lowercasedGenre && lowercasedGenre !== "all") {
           return (
-            item.data.category.toLowerCase().includes(lowercasedGenre) &&
+            item.data.genre.toLowerCase().includes(lowercasedGenre) &&
             (matchingAlbumTitle || matchingArtistName)
           );
         }

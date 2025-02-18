@@ -22,7 +22,7 @@ export async function fetchTopAlbums(): Promise<ScrollItem<Album>[]> {
         images: entry["im:image"] || "",
         imageLink: entry["im:image"].at(-1)?.label || "",
         releaseDate: new Date(entry["im:releaseDate"].attributes.label),
-        category: entry.category.attributes.label,
+        genre: entry.category.attributes.label,
       };
 
       return {
