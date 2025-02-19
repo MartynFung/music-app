@@ -20,7 +20,7 @@ export function Dropdown({
   placeholderText = "Select an option",
   menuTitleText = "Sort By:",
 }: Props): JSX.Element {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const toggleDropdown = () => setIsOpen((prev) => !prev);

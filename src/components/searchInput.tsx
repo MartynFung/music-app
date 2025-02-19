@@ -13,8 +13,8 @@ export function SearchInput({
   debounceTimeMs,
   placeholder = "Search",
 }: Props): JSX.Element {
-  const [inputValue, setInputValue] = useState(searchValue);
-  const [isOpen, setIsOpen] = useState(false);
+  const [inputValue, setInputValue] = useState<string>(searchValue);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {

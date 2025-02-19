@@ -15,7 +15,7 @@ interface Props {
 export function AlbumCard({ album, rank }: Props): JSX.Element {
   const { albumTitle, albumLink, artistName, imageLink, artistLink } = album;
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { favorites, toggleFavorite } = useFavorites();
   const isFavorite = favorites.has(album.id);
 
