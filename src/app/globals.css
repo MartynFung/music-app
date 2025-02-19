@@ -20,17 +20,3 @@ body {
   background: var(--background);
   font-family: "Avenir", Arial, Helvetica, sans-serif;
 }
-
-/* TODO: Move parallax hover styles to separate file */
-.album-image-container {
-  position: relative;
-  color: #fff;
-  transition: transform 0.1s ease;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-/* Slight parallax effect on hover */
-.album-image-container:hover .album-image {
-  transform: translateZ(12px);
-}

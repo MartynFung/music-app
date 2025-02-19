@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AlbumImage } from "@/components/albumImage/albumImage";
 
 const DateFormatOptions: Intl.DateTimeFormatOptions = {
   year: "numeric",
@@ -69,15 +70,13 @@ export function AlbumModal({ album, isOpen, onClose }: Props) {
             </button>
           </div>
           <div className="flex flex-col items-center mt-4">
-            <a href={albumLink} target="_blank" rel="noopener noreferrer">
-              <Image
-                src={imageLink || ""}
-                alt={`Album Art: ${albumTitle}`}
-                width={200}
-                height={200}
-                className="rounded-lg transition duration-300 ease-in-out hover:brightness-75 shadow-lg hover:shadow-xl cursor-pointer"
-              />
-            </a>
+            <AlbumImage
+              imageLink={imageLink}
+              albumTitle={albumTitle}
+              handleClick={() =>
+                window.open(albumLink, "_blank", "noopener,noreferrer")
+              }
+            />
             <div className="flex flex-col mt-4 text-center">
               <p className="text-md text-rose-500">
                 <a

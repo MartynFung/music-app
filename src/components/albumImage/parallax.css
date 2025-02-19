@@ -1,0 +1,11 @@
+.parallax-container {
+  position: relative;
+  transition: transform 0.1s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Slight parallax effect on hover */
+.parallax-container:hover .parallax-content {
+  transform: translateZ(12px);
+}
