@@ -15,6 +15,7 @@ export async function fetchTopAlbums(): Promise<ScrollItem<Album>[]> {
     const data: ITunesResponse = await response.json();
     return data.feed.entry.map((entry: Entry, index) => {
       const album: Album = {
+        id: entry.id.attributes["im:id"],
         albumTitle: entry["im:name"].label || "",
         artistName: entry["im:artist"].label || "",
         artistLink: entry["im:artist"]?.attributes?.href || "",

@@ -70,7 +70,7 @@ export function SearchInput({
           type="text"
           value={inputValue}
           onChange={handleChange}
-          className="w-40 px-4 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-black transition duration-300 ease-in-out h-10"
+          className="w-40 px-4 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-black transition duration-300 ease-in-out h-10 text-gray-600"
           placeholder={placeholder}
           autoFocus
         />

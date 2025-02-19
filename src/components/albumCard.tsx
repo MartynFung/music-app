@@ -1,7 +1,11 @@
 import { AlbumModal } from "@/components/albumModal";
 import { Album } from "@/types/album";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
+
 import Image from "next/image";
 import { useState } from "react";
+import { useFavorites } from "@/context/favoritesContext";
 
 interface Props {
   album: Album;
@@ -19,6 +23,8 @@ export function AlbumCard({ album, rank }: Props): React.JSX.Element {
   } = album;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { favorites, toggleFavorite } = useFavorites();
+  const isFavorite = favorites.has(album.id);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -46,7 +52,17 @@ export function AlbumCard({ album, rank }: Props): React.JSX.Element {
         />
       </div>
       <div className="flex flex-col flex-1 w-full min-w-0 py-2">
-        <label className="text-sm font-bold">{rank}</label>
+        <div className="flex justify-between">
+          <label className="text-sm font-bold text-black">{rank}</label>
+          <FontAwesomeIcon
+            icon={faHeart}
+            size="lg"
+            className="flex cursor-pointer hover:brightness-75 transition"
+            color={isFavorite ? "red" : "gray"}
+            onClick={() => toggleFavorite(album.id)}
+            width={15}
+          />
+        </div>
         {/* <label className="text-sm font-medium font-bold">{releaseDate.toDateString()}</label> */}
         <a href={albumLink} target="_blank" rel="noopener noreferrer">
           <label className="block cursor-pointer text-sm font-medium text-gray-900 truncate hover:underline w-full overflow-hidden">

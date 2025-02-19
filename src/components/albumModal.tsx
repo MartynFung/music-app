@@ -60,7 +60,7 @@ export function AlbumModal({ album, isOpen, onClose }: Props) {
       <div className="flex justify-center items-center min-h-screen">
         <div ref={modalRef} className="bg-white rounded-xl shadow-xl w-96 p-6">
           <div className="flex justify-center items-center relative">
-            <h2 className="text-xl font-bold mx-6">{albumTitle}</h2>
+            <h2 className="text-xl font-bold mx-6 text-black">{albumTitle}</h2>
             <button
               className="absolute top-1 right-1 text-gray-600 hover:text-black"
               onClick={onClose}
@@ -89,7 +89,7 @@ export function AlbumModal({ album, isOpen, onClose }: Props) {
                   {artistName}
                 </a>
               </p>
-              <p className="text-sm">{genre}</p>
+              <p className="text-sm text-black">{genre}</p>
               <p className="text-sm text-gray-600">{dateString}</p>
             </div>
           </div>

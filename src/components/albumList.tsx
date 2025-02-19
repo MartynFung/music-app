@@ -27,7 +27,7 @@ export function AlbumList({ albums }: Props): React.JSX.Element {
       key: string | null,
       searchVal: string | null
     ) => {
-      if (key === SortKey.top && !searchVal) {
+      if (key === SortKey.rank && !searchVal) {
         return items;
       }
 
@@ -110,12 +110,12 @@ export function AlbumList({ albums }: Props): React.JSX.Element {
   return (
     <div>
       <div className="flex flex-col items-center justify-between pb-6 gap-2 sm:flex-row">
-        <h1 className="text-xl font-bold">Top Albums</h1>
+        <h1 className="text-xl font-bold text-black">Top Albums</h1>
         {renderListControls()}
       </div>
       <div
         id="infinite-scroll-container"
-        className="min-h-screen max-w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+        className="min-h-screen max-w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-6 md:gap-8"
       >
         <InfiniteScroll
           items={sortedAlbums}
