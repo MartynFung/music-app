@@ -10,7 +10,7 @@ interface Props {
   selectedOptionId: string | null;
   handleSelectedOption: (value: string) => void;
   placeholderText?: string;
-  firstItemText?: string;
+  menuTitleText?: string;
 }
 
 export function Dropdown({
@@ -18,7 +18,7 @@ export function Dropdown({
   selectedOptionId,
   handleSelectedOption: setSelectedOption,
   placeholderText = "Select an option",
-  firstItemText = "Sort By:",
+  menuTitleText = "Sort By:",
 }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -73,7 +73,7 @@ export function Dropdown({
                 className="w-full text-left px-4 py-2 text-gray-400"
                 disabled
               >
-                {firstItemText}
+                {menuTitleText}
               </button>
             </li>
             {options.map((option: DropdownOption) => {

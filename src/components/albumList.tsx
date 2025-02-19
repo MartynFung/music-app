@@ -48,7 +48,7 @@ export function AlbumList({ albums }: Props): React.JSX.Element {
         }
         return matchingAlbumTitle || matchingArtistName;
       });
-      console.log({ lowercasedGenre });
+
       return filteredItems.sort((a, b) => {
         switch (key) {
           case SortKey.albumTitle:
@@ -101,7 +101,7 @@ export function AlbumList({ albums }: Props): React.JSX.Element {
           selectedOptionId={genre}
           handleSelectedOption={setSelectedGenre}
           placeholderText="Filter"
-          firstItemText="Filter by:"
+          menuTitleText="Filter by:"
         />
       </div>
     );
