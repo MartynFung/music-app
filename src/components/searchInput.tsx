@@ -51,7 +51,7 @@ export function SearchInput({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [inputValue, handleClickOutside]);
+  }, [handleClickOutside]);
 
   return (
     <div className="relative">
