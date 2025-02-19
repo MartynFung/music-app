@@ -50,7 +50,7 @@ export function AlbumImage({
       card.removeEventListener("mousemove", handleHover);
       card.removeEventListener("mouseleave", resetStyles);
     };
-  }, []);
+  }, [magnitude]);
 
   return (
     <div className={`parallax-container  flex-shrink-0 relative`} ref={cardRef}>
