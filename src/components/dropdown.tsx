@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, JSX } from "react";
 
 export interface DropdownOption {
   id: string;
@@ -19,7 +19,7 @@ export function Dropdown({
   handleSelectedOption: setSelectedOption,
   placeholderText = "Select an option",
   menuTitleText = "Sort By:",
-}: Props) {
+}: Props): JSX.Element {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
 

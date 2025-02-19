@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback, JSX } from "react";
 
 interface Props {
   searchValue: string;
@@ -12,7 +12,7 @@ export function SearchInput({
   setSearchValue,
   debounceTimeMs,
   placeholder = "Search",
-}: Props): React.JSX.Element {
+}: Props): JSX.Element {
   const [inputValue, setInputValue] = useState(searchValue);
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -25,7 +25,7 @@ export function SearchInput({
     return () => clearTimeout(timer);
   }, [inputValue, setSearchValue, debounceTimeMs]);
 
-  const handleClickOutside = React.useCallback(
+  const handleClickOutside = useCallback(
     (event: MouseEvent) => {
       if (
         inputRef.current &&

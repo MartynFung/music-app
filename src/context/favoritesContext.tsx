@@ -6,6 +6,7 @@ import {
   useEffect,
   useContext,
   ReactNode,
+  JSX,
 } from "react";
 
 type FavoritesContextType = {
@@ -21,7 +22,9 @@ const FavoritesContext = createContext<FavoritesContextType | undefined>(
   undefined
 );
 
-export function FavoritesProvider({ children }: FavoritesProviderProps) {
+export function FavoritesProvider({
+  children,
+}: FavoritesProviderProps): JSX.Element {
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
   useEffect(() => {
@@ -38,9 +41,11 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
   const toggleFavorite = (item: string) => {
     setFavorites((prevFavorites) => {
       const newFavorites = new Set(prevFavorites);
-      newFavorites.has(item)
-        ? newFavorites.delete(item)
-        : newFavorites.add(item);
+      if (newFavorites.has(item)) {
+        newFavorites.delete(item);
+      } else {
+        newFavorites.add(item);
+      }
       return new Set(newFavorites);
     });
   };

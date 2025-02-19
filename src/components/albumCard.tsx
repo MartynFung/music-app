@@ -3,7 +3,7 @@ import { Album } from "@/types/album";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
-import { useState } from "react";
+import { JSX, useState } from "react";
 import { useFavorites } from "@/context/favoritesContext";
 import { AlbumImage } from "@/components/albumImage/albumImage";
 
@@ -12,15 +12,8 @@ interface Props {
   rank: number;
 }
 
-export function AlbumCard({ album, rank }: Props): React.JSX.Element {
-  const {
-    albumTitle,
-    albumLink,
-    artistName,
-    imageLink,
-    artistLink,
-    releaseDate,
-  } = album;
+export function AlbumCard({ album, rank }: Props): JSX.Element {
+  const { albumTitle, albumLink, artistName, imageLink, artistLink } = album;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { favorites, toggleFavorite } = useFavorites();
@@ -73,9 +66,6 @@ export function AlbumCard({ album, rank }: Props): React.JSX.Element {
             {artistName}
           </label>
         </a>
-        {/* <label className="text-sm font-medium font-bold text-black">
-          {releaseDate.getFullYear()}
-        </label> */}
       </div>
     </div>
   );

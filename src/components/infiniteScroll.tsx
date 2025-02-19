@@ -1,5 +1,6 @@
 "use client";
 import * as React from "react";
+import { JSX, useEffect, useState } from "react";
 
 export interface ScrollItem<T> {
   index: number;
@@ -18,10 +19,10 @@ export function InfiniteScroll<T>({
   items,
   renderItem,
   itemsPerPage = 10,
-}: Props<T>): React.JSX.Element {
-  const [visibleItems, setVisibleItems] = React.useState<number>(itemsPerPage);
+}: Props<T>): JSX.Element {
+  const [visibleItems, setVisibleItems] = useState<number>(itemsPerPage);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
       const scrolledToBottom =
         window.innerHeight + window.scrollY >= document.body.offsetHeight;

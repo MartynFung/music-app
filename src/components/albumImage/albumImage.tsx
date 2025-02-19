@@ -1,8 +1,6 @@
-import React, { useRef, useEffect } from "react";
-import "@/components/albumImage/parallax.css";
+import React, { useRef, useEffect, JSX } from "react";
 import Image from "next/image";
-
-const THRESHOLD = 15;
+import "@/components/albumImage/parallax.css";
 
 interface Props {
   imageLink: string;
@@ -10,6 +8,7 @@ interface Props {
   handleClick?: () => void;
   width?: number;
   height?: number;
+  magnitude?: number;
 }
 
 export function AlbumImage({
@@ -18,7 +17,8 @@ export function AlbumImage({
   handleClick = () => {},
   width = 200,
   height = 200,
-}: Props): React.JSX.Element {
+  magnitude = 8,
+}: Props): JSX.Element {
   const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -33,8 +33,8 @@ export function AlbumImage({
 
       const horizontal = (clientX - rect.left) / clientWidth;
       const vertical = (clientY - rect.top) / clientHeight;
-      const rotateX = (THRESHOLD / 2 - horizontal * THRESHOLD).toFixed(2);
-      const rotateY = (vertical * THRESHOLD - THRESHOLD / 2).toFixed(2);
+      const rotateX = (magnitude / 2 - horizontal * magnitude).toFixed(2);
+      const rotateY = (vertical * magnitude - magnitude / 2).toFixed(2);
 
       card.style.transform = `perspective(${clientWidth}px) rotateX(${rotateY}deg) rotateY(${rotateX}deg)`;
     };
@@ -52,13 +52,8 @@ export function AlbumImage({
     };
   }, []);
 
-  console.log({ imageLink });
-
   return (
-    <div
-      className={`parallax-container w-[${width}px] h-[${height}px] flex-shrink-0 relative`}
-      ref={cardRef}
-    >
+    <div className={`parallax-container  flex-shrink-0 relative`} ref={cardRef}>
       <Image
         src={imageLink || ""}
         alt={`Album Art: ${albumTitle}`}

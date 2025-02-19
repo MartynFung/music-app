@@ -1,8 +1,9 @@
 import { fetchTopAlbums } from "@/api/fetchTopAlbums";
 import { AlbumList } from "@/components/albumList";
 import { FavoritesProvider } from "@/context/favoritesContext";
+import { JSX } from "react";
 
-export default async function Home(): Promise<React.JSX.Element> {
+export default async function Home(): Promise<JSX.Element> {
   const albums = await fetchTopAlbums();
 
   return (

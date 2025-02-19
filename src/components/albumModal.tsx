@@ -1,6 +1,5 @@
 import { Album } from "@/types/album";
-import React, { useEffect, useRef } from "react";
-import Image from "next/image";
+import { JSX, useEffect, useRef } from "react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AlbumImage } from "@/components/albumImage/albumImage";
@@ -17,7 +16,7 @@ interface Props {
   onClose: () => void;
 }
 
-export function AlbumModal({ album, isOpen, onClose }: Props) {
+export function AlbumModal({ album, isOpen, onClose }: Props): JSX.Element {
   const modalRef = useRef<HTMLDivElement | null>(null);
   const {
     imageLink,

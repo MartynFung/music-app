@@ -7,21 +7,19 @@ import { SearchInput } from "@/components/searchInput";
 import { albumSortOptions, SortKey } from "@/constants/albumSort";
 import { genreOptions } from "@/constants/genres";
 import { Album } from "@/types/album";
-import * as React from "react";
+import { useState, useCallback, useEffect, JSX } from "react";
 
 interface Props {
   albums: ScrollItem<Album>[];
 }
 
-export function AlbumList({ albums }: Props): React.JSX.Element {
-  const [sortedAlbums, setSortedAlbums] = React.useState<ScrollItem<Album>[]>(
-    []
-  );
-  const [sortKey, setSortKey] = React.useState<string | null>(null);
-  const [searchValue, setSearchValue] = React.useState<string>("");
-  const [genre, setSelectedGenre] = React.useState<string | null>(null);
+export function AlbumList({ albums }: Props): JSX.Element {
+  const [sortedAlbums, setSortedAlbums] = useState<ScrollItem<Album>[]>([]);
+  const [sortKey, setSortKey] = useState<string | null>(null);
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [genre, setSelectedGenre] = useState<string | null>(null);
 
-  const sortItems = React.useCallback(
+  const sortItems = useCallback(
     (
       items: ScrollItem<Album>[],
       key: string | null,
@@ -65,7 +63,7 @@ export function AlbumList({ albums }: Props): React.JSX.Element {
     [searchValue, genre]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     const sortedItems = sortItems([...albums], sortKey, searchValue);
     setSortedAlbums(sortedItems);
   }, [sortKey, albums, searchValue, genre, sortItems]);
@@ -82,7 +80,7 @@ export function AlbumList({ albums }: Props): React.JSX.Element {
     <AlbumCard key={album.id} album={album.data} rank={album.index} />
   );
 
-  function renderListControls(): React.JSX.Element {
+  function renderListControls(): JSX.Element {
     return (
       <div className="flex flex-col items-center justify-between gap-2 sm:flex-row">
         <SearchInput
