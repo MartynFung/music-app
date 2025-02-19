@@ -1,4 +1,4 @@
-import { Entry, ITunesResponse } from "@/types/iTunesResponse";
+import { Entry, ITunesResponse } from "@/types/iTunesResponse2";
 import { ScrollItem } from "@/components/infiniteScroll";
 import { Album } from "@/types/album";
 
