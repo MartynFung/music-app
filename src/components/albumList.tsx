@@ -113,7 +113,7 @@ export function AlbumList({ albums }: Props): JSX.Element {
       </div>
       <div
         id="infinite-scroll-container"
-        className="min-h-screen max-w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-6 md:gap-8"
+        className="min-h-screen max-w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 sm:gap-6 md:gap-8 auto-rows-min"
       >
         <InfiniteScroll
           items={sortedAlbums}
