@@ -5,10 +5,18 @@ import { Dropdown } from "@/components/dropdown";
 import { InfiniteScroll, ScrollItem } from "@/components/infiniteScroll";
 import { SearchInput } from "@/components/searchInput";
 import { albumSortOptions, SortKey } from "@/constants/albumSort";
-import { genreOptions } from "@/constants/genres";
+import {
+  FavoritesOption,
+  FilterOptions,
+  AllOption,
+} from "@/constants/filterOptions";
 import { Album } from "@/types/album";
 import { useState, useCallback, useEffect, JSX } from "react";
 import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
+import { useFavorites } from "@/context/favoritesContext";
+
+const allOptionLowercased = AllOption.id.toLowerCase();
+const favoritesOptionLowercased = FavoritesOption.id.toLowerCase();
 
 interface Props {
   albums: ScrollItem<Album>[];
@@ -18,38 +26,55 @@ export function AlbumList({ albums }: Props): JSX.Element {
   const [sortedAlbums, setSortedAlbums] = useState<ScrollItem<Album>[]>([]);
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [searchValue, setSearchValue] = useState<string>("");
-  const [genre, setSelectedGenre] = useState<string | null>(null);
+  const [filter, setFilterOption] = useState<string | null>(null);
+  const { favorites } = useFavorites();
 
   const sortItems = useCallback(
-    (
-      items: ScrollItem<Album>[],
-      key: string | null,
-      searchVal: string | null
-    ) => {
-      if (key === SortKey.rank && !searchVal) {
+    (items: ScrollItem<Album>[]) => {
+      if (!filter && !sortKey && !searchValue) {
+        // Exit early for performance if no filters or sort
         return items;
       }
-
       const lowercasedSearchText = searchValue.toLowerCase();
-      const lowercasedGenre = genre?.toLocaleLowerCase() || "";
+      const filterBy = filter?.toLowerCase() || "";
+
       const filteredItems = items.filter((item) => {
         const matchingAlbumTitle = item.data.albumTitle
           .toLowerCase()
           .includes(lowercasedSearchText);
+
         const matchingArtistName = item.data.artistName
           .toLowerCase()
           .includes(lowercasedSearchText);
-        if (lowercasedGenre && lowercasedGenre !== "all") {
+
+        const searchCondition = matchingAlbumTitle || matchingArtistName;
+
+        // Filter by Favorites & serach
+        if (filterBy === favoritesOptionLowercased) {
+          return favorites.has(item.id) && searchCondition;
+        }
+
+        // Filter by Genre & serach
+        if (
+          filterBy &&
+          filterBy !== allOptionLowercased &&
+          filterBy !== favoritesOptionLowercased
+        ) {
           return (
-            item.data.genre.toLowerCase().includes(lowercasedGenre) &&
-            (matchingAlbumTitle || matchingArtistName)
+            item.data.genre.toLowerCase().includes(filterBy) && searchCondition
           );
         }
-        return matchingAlbumTitle || matchingArtistName;
+        // Filter by Search
+        return searchCondition;
       });
 
+      if (!sortKey) {
+        return filteredItems;
+      }
       return filteredItems.sort((a, b) => {
-        switch (key) {
+        switch (sortKey) {
+          case SortKey.rank:
+            return a.index - b.index;
           case SortKey.albumTitle:
             return a.data.albumTitle.localeCompare(b.data.albumTitle);
           case SortKey.artistName:
@@ -61,13 +86,13 @@ export function AlbumList({ albums }: Props): JSX.Element {
         }
       });
     },
-    [searchValue, genre]
+    [searchValue, filter, sortKey]
   );
 
   useEffect(() => {
-    const sortedItems = sortItems([...albums], sortKey, searchValue);
+    const sortedItems = sortItems([...albums]);
     setSortedAlbums(sortedItems);
-  }, [sortKey, albums, searchValue, genre, sortItems]);
+  }, [sortKey, albums, searchValue, filter, sortItems]);
 
   function handleSelectSortOption(value: string) {
     setSortKey(value);
@@ -93,13 +118,13 @@ export function AlbumList({ albums }: Props): JSX.Element {
           options={albumSortOptions}
           selectedOptionId={sortKey}
           handleSelectedOption={handleSelectSortOption}
-          placeholderText="Sort by"
+          placeholderText="Sort"
           icon={faSort}
         />
         <Dropdown
-          options={genreOptions}
-          selectedOptionId={genre}
-          handleSelectedOption={setSelectedGenre}
+          options={FilterOptions}
+          selectedOptionId={filter}
+          handleSelectedOption={setFilterOption}
           placeholderText="Filter"
           menuTitleText="Filter by:"
           icon={faFilter}

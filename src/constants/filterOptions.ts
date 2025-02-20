@@ -2,10 +2,6 @@ import { DropdownOption } from "@/components/dropdown";
 
 export const genreOptions: DropdownOption[] = [
   {
-    id: "All",
-    value: "All",
-  },
-  {
     id: "Alternative",
     value: "Alternative",
   },
@@ -74,3 +70,15 @@ export const genreOptions: DropdownOption[] = [
     value: "Jazz",
   },
 ];
+
+export const FavoritesOption: DropdownOption = {
+  id: "Favorites",
+  value: "Favorites",
+};
+
+export const AllOption: DropdownOption = {
+  id: "All",
+  value: "All",
+};
+
+export const FilterOptions = [AllOption, FavoritesOption, ...genreOptions];
