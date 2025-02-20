@@ -61,7 +61,7 @@ export function AlbumImage({
         height={height}
         onClick={() => handleClick()}
         priority
-        className="rounded-lg transition duration-300 ease-in-out hover:brightness-75 shadow-lg hover:shadow-xl cursor-pointer"
+        className="rounded-lg transition duration-300 ease-in-out hover:brightness-75 shadow-md hover:shadow-xl cursor-pointer"
       />
     </div>
   );
