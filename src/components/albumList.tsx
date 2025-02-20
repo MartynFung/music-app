@@ -8,6 +8,7 @@ import { albumSortOptions, SortKey } from "@/constants/albumSort";
 import { genreOptions } from "@/constants/genres";
 import { Album } from "@/types/album";
 import { useState, useCallback, useEffect, JSX } from "react";
+import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
 
 interface Props {
   albums: ScrollItem<Album>[];
@@ -93,6 +94,7 @@ export function AlbumList({ albums }: Props): JSX.Element {
           selectedOptionId={sortKey}
           handleSelectedOption={handleSelectSortOption}
           placeholderText="Sort by"
+          icon={faSort}
         />
         <Dropdown
           options={genreOptions}
@@ -100,6 +102,7 @@ export function AlbumList({ albums }: Props): JSX.Element {
           handleSelectedOption={setSelectedGenre}
           placeholderText="Filter"
           menuTitleText="Filter by:"
+          icon={faFilter}
         />
       </div>
     );

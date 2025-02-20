@@ -1,3 +1,5 @@
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect, useRef, JSX } from "react";
 
 export interface DropdownOption {
@@ -11,6 +13,7 @@ interface Props {
   handleSelectedOption: (value: string) => void;
   placeholderText?: string;
   menuTitleText?: string;
+  icon?: IconProp;
 }
 
 export function Dropdown({
@@ -19,6 +22,7 @@ export function Dropdown({
   handleSelectedOption: setSelectedOption,
   placeholderText = "Select an option",
   menuTitleText = "Sort By:",
+  icon,
 }: Props): JSX.Element {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement | null>(null);
@@ -55,9 +59,17 @@ export function Dropdown({
     return (
       <button
         onClick={toggleDropdown}
-        className={`px-4 py-2 font-medium text-rose-500 rounded-lg hover:bg-gray-100 hover:shadow-md ${isOpen && "shadow-md bg-gray-100"} transition`}
+        className={`px-4 py-2 font-medium text-rose-500 rounded-lg hover:bg-gray-100 hover:shadow-md ${isOpen && "shadow-md bg-gray-100"} transition flex gap-2 items-center`}
       >
         {selectedOptionId ? selectedOptionId : placeholderText}
+        {icon && (
+          <FontAwesomeIcon
+            icon={icon}
+            size="lg"
+            className="flex cursor-pointer hover:brightness-75 transition"
+            width={15}
+          />
+        )}
       </button>
     );
   }
